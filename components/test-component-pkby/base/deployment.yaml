@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: test-component-pkby
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-component-pkby
+    app.kubernetes.io/part-of: test-app-hdmm
+  name: test-component-pkby
+  namespace: build-e2e-hacbs-pfwk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: test-component-pkby
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: test-component-pkby
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio-qe/test-images:56e43f4b567b4367accb375d4fd6c09f
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        name: container-image
+        ports:
+        - containerPort: 8081
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          tcpSocket:
+            port: 8081
+        resources: {}
+status: {}

@@ -1,0 +1,23 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: test-component-pkby
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-component-pkby
+    app.kubernetes.io/part-of: test-app-hdmm
+  name: test-component-pkby
+  namespace: build-e2e-hacbs-pfwk
+spec:
+  port:
+    targetPort: 8081
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: test-component-pkby
+    weight: 100
+status: {}
